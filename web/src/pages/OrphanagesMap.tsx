@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 import "../styles/pages/orphanages-map.css";
-
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 import mapMarkerImg from "../assets/map-marker.svg";
 
 function OrphanagesMap() {
@@ -22,7 +23,22 @@ function OrphanagesMap() {
         </footer>
       </aside>
 
-      <div></div>
+      <MapContainer
+        center={[41.1621217, -8.6919936]}
+        zoom={13}
+        scrollWheelZoom={false}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[41.1621217, -8.6919936]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
 
       <Link to="" className="create-orphanage">
         <FiPlus size={32} color="#FFF" />
