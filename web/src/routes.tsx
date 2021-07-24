@@ -5,8 +5,10 @@ import OrphanagesMap from "./pages/OrphanagesMap";
 function Routes() {
   return (
     <BrowserRouter>
-      <Route path="/" component={Landing} exact />
-      <Route path="/app" component={OrphanagesMap} />
+      <Switch>
+        <Route path="/" component={Landing} exact />
+        <Route path="/app" component={OrphanagesMap} />
+      </Switch>
     </BrowserRouter>
   );
 }
