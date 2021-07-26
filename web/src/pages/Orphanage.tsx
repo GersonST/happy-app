@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import Sidebar from "../components/SideBar";
 import mapIcon from "../utils/mapIcon";
 
-//import api from "../services/api";
+import api from "../services/api";
 
 import "../styles/pages/orphanage.css";
 
@@ -34,11 +34,11 @@ export default function Orphanage() {
   const [orphanage, setOrphaange] = useState<Orphanage>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  //useEffect(() => {
-  // api.get(`/orphanages/${params.id}`).then((res) => {
-  //   setOrphaange(res.data);
-  // });
-  // }, [params.id]);
+  useEffect(() => {
+    api.get(`/orphanages/${params.id}`).then((res) => {
+      setOrphaange(res.data);
+    });
+  }, [params.id]);
 
   if (!orphanage) {
     return <p>Carregando...</p>;

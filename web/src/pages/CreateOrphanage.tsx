@@ -4,7 +4,7 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { FiPlus, FiX } from "react-icons/fi";
 import { LeafletMouseEvent } from "leaflet";
 
-//import api from "../services/api";
+import api from "../services/api";
 
 import Sidebar from "../components/SideBar";
 import mapIcon from "../utils/mapIcon";
@@ -57,7 +57,7 @@ export default function CreateOrphanage() {
       data.append("images", image);
     });
 
-    //await api.post("/orphanages", data);
+    await api.post("/orphanages", data);
 
     alert("Orfanato cadastrado com sucesso!");
 
