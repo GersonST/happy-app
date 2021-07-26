@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import { FiClock, FiInfo } from "react-icons/fi";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { useParams } from "react-router-dom";
 
-//import Sidebar from "../components/SideBar";
-//import mapIcon from "../utils/mapIcon";
+import Sidebar from "../components/SideBar";
+import mapIcon from "../utils/mapIcon";
 
 //import api from "../services/api";
 
@@ -34,11 +34,11 @@ export default function Orphanage() {
   const [orphanage, setOrphaange] = useState<Orphanage>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  useEffect(() => {
-    api.get(`/orphanages/${params.id}`).then((res) => {
-      setOrphaange(res.data);
-    });
-  }, [params.id]);
+  //useEffect(() => {
+  // api.get(`/orphanages/${params.id}`).then((res) => {
+  //   setOrphaange(res.data);
+  // });
+  // }, [params.id]);
 
   if (!orphanage) {
     return <p>Carregando...</p>;
@@ -88,7 +88,8 @@ export default function Orphanage() {
                 doubleClickZoom={false}
               >
                 <TileLayer
-                  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Marker
                   interactive={false}
@@ -135,10 +136,10 @@ export default function Orphanage() {
               )}
             </div>
 
-            {/* <button type="button" className="contact-button">
+            <button type="button" className="contact-button">
               <FaWhatsapp size={20} color="#FFF" />
               Entrar em contato
-            </button> */}
+            </button>
           </div>
         </div>
       </main>
