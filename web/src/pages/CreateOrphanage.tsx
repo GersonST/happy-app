@@ -1,8 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import { FiPlus, FiX } from "react-icons/fi";
-import { LeafletMouseEvent } from "leaflet";
 
 import api from "../services/api";
 
@@ -29,13 +28,24 @@ export default function CreateOrphanage() {
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<PreviewImage[]>([]);
 
-  function handleMapClick(event: LeafletMouseEvent) {
-    const { lat, lng } = event.latlng;
-
-    setPosition({
-      latitude: lat,
-      longitude: lng,
+  function AddMarkerToClick() {
+    const map = useMapEvents({
+      click(event) {
+        const { lat, lng } = event.latlng;
+        setPosition({
+          latitude: lat,
+          longitude: lng,
+        });
+      },
     });
+
+    return position.latitude !== 0 ? (
+      <Marker
+        position={[position.latitude, position.longitude]}
+        interactive={false}
+        icon={mapIcon}
+      />
+    ) : null;
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -100,22 +110,17 @@ export default function CreateOrphanage() {
             <legend>Dados</legend>
 
             <MapContainer
-              center={[-27.2092052, -49.6401092]}
+              center={[41.14981, -8.6337122]}
               style={{ width: "100%", height: 280 }}
               zoom={15}
             >
               <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url={
+                  "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZ2Vyc29uc3QiLCJhIjoiY2tya3RxYmQ0MHh3MDJucXJvZWRvdTN5YiJ9.vUHmvo1e5H9uKUZJplNJUQ"
+                }
               />
 
-              {position.latitude !== 0 && (
-                <Marker
-                  interactive={false}
-                  icon={mapIcon}
-                  position={[position.latitude, position.longitude]}
-                />
-              )}
+              <AddMarkerToClick />
             </MapContainer>
 
             <div className="input-block">

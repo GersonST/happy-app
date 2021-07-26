@@ -48,8 +48,9 @@ function OrphanagesMap() {
         style={{ width: "100%", height: "100%" }}
       >
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url={
+            "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZ2Vyc29uc3QiLCJhIjoiY2tya3RxYmQ0MHh3MDJucXJvZWRvdTN5YiJ9.vUHmvo1e5H9uKUZJplNJUQ"
+          }
         />
         {orphanages.map((orphanage) => {
           return (
